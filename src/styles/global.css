@@ -1,0 +1,474 @@
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  min-height: var(--touch-min);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Layout principal - Tema Arquipélago Oceano Estrelado */
+.app-shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background:
+    radial-gradient(2px 2px at 12% 14%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(2px 2px at 28% 8%, rgba(250, 204, 21, 0.85), transparent),
+    radial-gradient(1.5px 1.5px at 45% 18%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(2.5px 2.5px at 66% 10%, rgba(165, 243, 252, 0.9), transparent),
+    radial-gradient(2px 2px at 84% 16%, rgba(250, 204, 21, 0.9), transparent),
+    radial-gradient(1.5px 1.5px at 92% 26%, rgba(255, 255, 255, 0.75), transparent),
+    radial-gradient(2px 2px at 18% 36%, rgba(165, 243, 252, 0.7), transparent),
+    radial-gradient(2px 2px at 74% 38%, rgba(255, 255, 255, 0.65), transparent),
+    linear-gradient(180deg, #0F1035 0%, #1D2671 34%, #0369A1 72%, #0EA5E9 100%);
+  background-attachment: fixed;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(15, 16, 53, 0.82);
+  backdrop-filter: blur(12px);
+  border-bottom: 2px solid rgba(56, 189, 248, 0.35);
+  padding: 10px 16px;
+  color: #FFFFFF;
+}
+
+.app-header-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.app-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 20px 16px 96px;
+}
+
+.app-main > div > h2,
+.app-main > div > div > h2,
+.app-main > div > div > h3,
+.ocean-heading {
+  color: #FFFFFF;
+  text-shadow: 0 2px 8px rgba(15, 16, 53, 0.65);
+}
+
+.card h2,
+.card h3,
+.card h4 {
+  color: var(--text-main);
+  text-shadow: none;
+}
+
+/* Navegação inferior estilo jogo */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  background: rgba(15, 16, 53, 0.92);
+  backdrop-filter: blur(12px);
+  border-top: 2px solid rgba(56, 189, 248, 0.35);
+  display: flex;
+  justify-content: space-around;
+  padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+  box-shadow: 0 -4px 20px rgba(15, 16, 53, 0.35);
+}
+
+.bottom-nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  color: #CBD5E1;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 60px;
+}
+
+.bottom-nav-btn.active {
+  color: #FFFFFF;
+  background: linear-gradient(180deg, #38BDF8 0%, #0284C7 100%);
+  box-shadow: 0 3px 10px rgba(56, 189, 248, 0.45);
+}
+
+/* Botões táteis 3D estilo jogo infantil */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  font-weight: 800;
+  font-size: 1rem;
+  min-height: var(--touch-min);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, #6366F1 0%, #4F46E5 100%);
+  color: #ffffff;
+  border-bottom: 4px solid #3730A3;
+}
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(180deg, #818CF8 0%, #4338CA 100%);
+}
+
+.btn-secondary {
+  background: linear-gradient(180deg, #FCD34D 0%, #F59E0B 100%);
+  color: #1E1B4B;
+  border-bottom: 4px solid #B45309;
+}
+.btn-secondary:hover:not(:disabled) {
+  background: linear-gradient(180deg, #FDE68A 0%, #D97706 100%);
+}
+
+.btn-success {
+  background: linear-gradient(180deg, #34D399 0%, #10B981 100%);
+  color: #ffffff;
+  border-bottom: 4px solid #047857;
+}
+
+.btn-outline {
+  background: #FFFFFF;
+  color: var(--text-main);
+  border: 2px solid #CBD5E1;
+  border-bottom: 4px solid #94A3B8;
+}
+.btn-outline:hover:not(:disabled) {
+  border-color: var(--primary);
+  background: var(--bg-indigo-soft);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #E2E8F0;
+  box-shadow: none;
+}
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.14);
+  color: #FFFFFF;
+}
+
+.card .btn-ghost {
+  color: var(--text-muted);
+}
+.card .btn-ghost:hover:not(:disabled) {
+  background: var(--bg-soft);
+  color: var(--text-main);
+}
+
+.btn-lg {
+  padding: 14px 26px;
+  font-size: 1.125rem;
+  border-radius: var(--radius-lg);
+}
+
+/* Cards */
+.card {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.card-interactive {
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.card-interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+
+/* Grids responsivos */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+}
+
+.grid-letters {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+  gap: 10px;
+}
+
+/* Badges e pílulas */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.pill-amber {
+  background: var(--bg-amber-soft);
+  color: #92400E;
+}
+
+.pill-indigo {
+  background: var(--bg-indigo-soft);
+  color: var(--primary);
+}
+
+.pill-green {
+  background: var(--bg-green-soft);
+  color: var(--success-dark);
+}
+
+/* Barra de progresso */
+.progress-track {
+  width: 100%;
+  height: 14px;
+  background: var(--bg-soft);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--sky));
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+}
+
+/* Tiles de letras e sílabas */
+.tile-btn {
+  min-width: 60px;
+  min-height: 60px;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  border: 3px solid var(--border-soft);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-main);
+  box-shadow: 0 4px 0 var(--border-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.tile-btn:hover:not(:disabled) {
+  border-color: var(--primary);
+  background: var(--bg-indigo-soft);
+}
+
+.tile-btn.selected {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 4px 0 var(--primary-hover);
+}
+
+.tile-btn.correct {
+  border-color: var(--success);
+  background: var(--bg-green-soft);
+  color: var(--success-dark);
+}
+
+.tile-btn.try-again {
+  border-color: var(--secondary);
+  background: var(--bg-amber-soft);
+  color: #92400E;
+}
+
+/* Feedback banner */
+.feedback-banner {
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  animation: popIn 0.25s ease;
+}
+
+.feedback-positive {
+  background: var(--bg-green-soft);
+  border: 2px solid var(--success);
+  color: var(--success-dark);
+}
+
+.feedback-encourage {
+  background: var(--bg-amber-soft);
+  border: 2px solid var(--secondary);
+  color: #92400E;
+}
+
+/* Mascote Lumi */
+.lumi-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, #EEF2FF 0%, #FFFBEB 100%);
+  border: 2px solid #C7D2FE;
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+}
+
+.lumi-bubble {
+  flex: 1;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* Input grande e amigável */
+.input-lg {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border-soft);
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: var(--bg-surface);
+  color: var(--text-main);
+}
+
+.input-lg:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+/* Animações suaves */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.animate-float {
+  animation: floatGentle 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .feedback-banner {
+    animation: none;
+  }
+  * {
+    transition: none !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .app-main {
+    padding: 28px 24px 96px;
+  }
+}
+
+/* Ajustes finos para celulares (360px - 600px) e telas com notch */
+@media (max-width: 600px) {
+  .app-header {
+    padding: calc(8px + env(safe-area-inset-top)) 12px 8px;
+  }
+  .app-main {
+    padding: 14px 12px calc(92px + env(safe-area-inset-bottom));
+  }
+  .card {
+    padding: 16px;
+    border-radius: 20px;
+  }
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .btn-lg {
+    padding: 12px 18px;
+    font-size: 1rem;
+  }
+  .lumi-box {
+    flex-wrap: wrap;
+    padding: 12px 14px;
+  }
+  .tile-btn {
+    min-width: 52px;
+    min-height: 54px;
+    font-size: 1.2rem;
+    padding: 8px 12px;
+  }
+}
